@@ -82,4 +82,15 @@ class ProductsController extends Controller
     {
         //
     }
+
+    /**
+     * Returns all products.
+     *
+     * @param  \App\Products  $products
+     * @return \Illuminate\Http\Response
+     */
+    public function getAll(){
+        $products = new Products;
+        return $products->getAll();
+    }
 }

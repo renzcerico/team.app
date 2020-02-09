@@ -11,7 +11,7 @@ class Products extends Model
      *
      * @var string
      */
-    protected $table = 'tbl_products';
+    protected $table = 'products';
 
     public function getAll(){
         return Products::all();
