@@ -18,16 +18,6 @@ class ProductsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -61,15 +51,24 @@ class ProductsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Returns all products.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Products $products)
-    {
-        //
+    public function getAll(){
+        return Products::orderBy('id', 'desc')->get();
+    }
+
+    /**
+     * Returns a product by id.
+     *
+     * @param  \App\Products  $products
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getById(int $id){
+        return Products::where('id', $id)->get();
     }
 
     /**
@@ -78,19 +77,41 @@ class ProductsController extends Controller
      * @param  \App\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Products $products)
-    {
-        //
+
+    public function destroy(int $id){
+        if(Products::destroy($id)){
+            return 'product deleted succesfully.';
+        }
+        return 'error creating product.' ;
     }
 
     /**
-     * Returns all products.
+     * Store a newly created product.
      *
-     * @param  \App\Products  $products
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getAll(){
-        $products = new Products;
-        return $products->getAll();
+    public function create(Request $request)
+    {
+        if(Products::create($request->all())){
+            return 'product created.';
+        }
+        return 'error creating product.';
+    }
+
+    /**
+     * Updates an existing product.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(int $id, Request $request)
+    {
+        $product = Products::find($id);
+        $product->fill($request->all());
+        if($product->save()){
+            return 'product updated.';
+        }
+        return 'error updating product.';
     }
 }

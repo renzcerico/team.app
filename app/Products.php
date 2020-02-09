@@ -12,8 +12,10 @@ class Products extends Model
      * @var string
      */
     protected $table = 'products';
-
-    public function getAll(){
-        return Products::all();
-    }
+    protected $fillable = [
+        'product_name',
+        'description',
+        'stock',
+        'regular_price'
+    ];
 }

@@ -18,5 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('products')->group(function () {
-    Route::get('get-all', 'ProductsController@getAll');
+    Route::get('getAll', 'ProductsController@getAll');
+    Route::get('getById/{id}', 'ProductsController@getById');
+    Route::get('destroy/{id}', 'ProductsController@destroy');
+    Route::post('create', 'ProductsController@create');
+    Route::post('update/{id}', 'ProductsController@update');
 });
